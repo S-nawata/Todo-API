@@ -1,11 +1,19 @@
-const List = ({ todos }) => {
-    console.log(todos);
+import Item from "./Item";
+
+const List = ({ todos, deleteTodo }) => {
+    //propsを渡さなかった場合undefindが渡ってくる
     return(
     <ul>
         {todos.map((todo) => {
-            return <li>{todo.content}</li>
+            return <Item 
+                        key={todo.id} 
+                        content={todo.content} 
+                        id={todo.id}
+                        deleteTodo={deleteTodo} 
+                    />;
         })}
-    </ul>);
+    </ul>
+    );
 };
 
 export default List;

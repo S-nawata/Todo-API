@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { nanoid } from "nanoid";
 
 import Title from "./Title";
 import Form from "./Form";
@@ -13,15 +14,37 @@ const App = () => {
     const [todos, setTodos] = useState([
         {
             content: "掃除をする",
-            id: "1",
+            id: nanoid(),
             isDone: false,        
         },
         {
             content: "洗濯をする",
-            id: "2",
+            id: nanoid(),
+            isDone: false,
+        },
+        {
+            content: "料理をする",
+            id: nanoid(),
             isDone: false,
         },
     ]);
+
+    const addTodo = (text) => {
+        setTodos([
+            ...todos,
+            {
+                content: text, 
+                id: nanoid(), 
+                isDone: false
+            },
+        ])
+    };
+
+    //Todoを削除する関数
+    const deleteTodo = (id) => {
+        setTodos(todos.filter((todo) => todo.id !== id));
+    };
+    
     const changeName = () => {
         setName("たろう");
     };
@@ -29,8 +52,8 @@ const App = () => {
     return (
         <>
     <Title username = {name}　/>
-    <Form />
-    <List todos = {todos} />
+    <Form addTodo={addTodo}/>
+    <List todos = {todos} deleteTodo = {deleteTodo} />
     <button onClick ={changeName}>名前変更ボタン</button>
     </>);
 };
